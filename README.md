@@ -4,8 +4,8 @@ A simple proof that quantum physics violates Bell's inequality. Based off Mike &
 
 I used uv on Ubuntu:
 
-'''bash
+```bash
 uv venv
 uv pip install -r requirements.txt
 python main.py
-'''
+```
