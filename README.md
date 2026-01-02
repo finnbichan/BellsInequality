@@ -6,6 +6,7 @@ I used uv on Ubuntu:
 
 ```bash
 uv venv
+source .venv/bin/activate
 uv pip install -r requirements.txt
 python main.py
 ```
