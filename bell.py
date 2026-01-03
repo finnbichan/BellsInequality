@@ -5,6 +5,7 @@ from statistics import mean
 
 def alice():
     measurables = ('Q', 'R')
+    #In the textbook, it is specified that the measurables are chosen randomly.
     measured = choose(measurables)
     result = measure()
     return(measured, result)

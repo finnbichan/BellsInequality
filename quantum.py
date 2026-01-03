@@ -2,6 +2,7 @@ import math
 import qiskit
 from qiskit_aer import Aer
 from qiskit_ibm_runtime import QiskitRuntimeService, Sampler
+from qiskit.transpiler import generate_preset_pass_manager
 from dotenv import load_dotenv
 import os
 
@@ -45,8 +46,19 @@ def simulate_circuit(qc):
     return job.result().get_counts(qc)
 
 def run_on_ibm_quantum(qc):
-    #TODO
-    return 0
+    service = QiskitRuntimeService()
+    backend = service.least_busy(
+    operational=True, simulator=False
+    )
+    print(f"Running on backend: {backend.name}")
+    pm = generate_preset_pass_manager(backend=backend)
+    isa_circuit = pm.run(qc)
+    sampler = Sampler(backend)
+    sampler.options.default_shots = 1024
+    job = sampler.run([isa_circuit])
+    result = job.result()[0].data.c.get_counts()
+    print(result)
+    return result
 
 def quantum(simulate):
     pairs = [('Q', 'S'), ('Q', 'T'), ('R', 'S'), ('R', 'T')]

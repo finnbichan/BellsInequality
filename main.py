@@ -2,7 +2,7 @@
 from bell import repeat_experiments
 from quantum import quantum
 
-simulate = True #TBC
+simulate = False #TBC
 
 def main(simulate=True):
     print("Let's start with the classical Bell inequality. We are expecting a result less than or equal to 2.")
