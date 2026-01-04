@@ -33,21 +33,8 @@ def create_and_run_circuit(alice, bob, simulate):
     return run_circuit(qc, simulate)
 
 def run_circuit(qc, simulate):
-    if simulate:
-        return simulate_circuit(qc)
-    else:
-        return run_on_ibm_quantum(qc)
-
-def simulate_circuit(qc):
-    print("Running circuit...")
-    backend = Aer.get_backend('aer_simulator')
-    compiled = qiskit.transpile(qc, backend)
-    job = backend.run(compiled, shots=1024)
-    return job.result().get_counts(qc)
-
-def run_on_ibm_quantum(qc):
     service = QiskitRuntimeService()
-    backend = service.least_busy(
+    backend = Aer.get_backend('aer_simulator') if simulate else service.least_busy(
     operational=True, simulator=False
     )
     print(f"Running on backend: {backend.name}")
